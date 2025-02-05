@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from tasks.forms import TaskForm,TaskModelForm
-from tasks.models import Employee,Task
+from tasks.models import Employee,Task,TaskDetail
 # Create your views here.
 def admin_dashboard(request):
     return render(request,"deshboard/manager-deshboard.html")
@@ -28,9 +28,10 @@ def create_text(request):
     return render(request,"task_from.html",context)
 
 def view_task(request):
+
+    # tasks=Task.objects.filter(status="PENDING")
+    # tasks=TaskDetail.objects.exclude( priority="H")
     tasks=Task.objects.all()
+    return render(request,"show_task.html",{"tasks":tasks})
 
-    task3=Task.objects.get(id=1)
-
-
-    return render(request,"show_task.html",{"tasks":tasks,"taskid":task3})
+ 
